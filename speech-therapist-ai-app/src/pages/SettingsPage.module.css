@@ -1,0 +1,231 @@
+/* SettingsPage.module.css */
+
+.pageContainer {
+  /* padding: 1.5rem; Handled by Layout.css */
+  /* background-color: #F9FAFB; Handled by Layout.css */
+  max-width: 850px; /* Adjusted max-width */
+  margin: 0 auto; 
+}
+
+.pageContainer h1 {
+  font-size: 1.7rem; /* Adjusted */
+  color: #2563EB; /* Medical Blue */
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.section {
+  background-color: #fff;
+  padding: 1.25rem; /* Adjusted */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06); /* Softer */
+  margin-bottom: 2rem;
+}
+
+.section h2 {
+  font-size: 1.4rem; /* Adjusted */
+  color: #059669; /* Calm Green */
+  margin-top: 0;
+  margin-bottom: 1.25rem; /* Adjusted */
+  border-bottom: 2px solid #D1FAE5; /* Lighter green border */
+  padding-bottom: 0.6rem; /* Adjusted */
+  font-weight: 600;
+}
+
+.settingItem {
+  margin-bottom: 1.25rem; /* Adjusted */
+  padding-bottom: 1.25rem; /* Adjusted */
+  border-bottom: 1px dashed #E5E7EB; 
+}
+.settingItem:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.settingItem h3 {
+  font-size: 1.1rem; /* Adjusted */
+  color: #374151; /* Dark Gray */
+  margin-top: 0;
+  margin-bottom: 0.6rem; /* Adjusted */
+  font-weight: 500;
+}
+
+.settingItem p, .settingItem .descriptionText {
+  font-size: 0.9rem; /* Adjusted */
+  color: #6B7280; /* Professional Gray */
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem; /* Adjusted */
+  margin-bottom: 1rem;
+}
+
+.formGroup label, .checkboxLabel {
+  font-weight: 500;
+  color: #374151; 
+  font-size: 0.95rem; /* Adjusted */
+}
+
+.formGroup select,
+.formGroup input[type="text"] {
+  padding: 0.6rem 0.75rem; /* Adjusted */
+  border: 1px solid #D1D5DB; 
+  border-radius: 6px;
+  font-size: 0.95rem;
+  max-width: 320px; /* Adjusted max-width */
+  font-family: 'Assistant', sans-serif; /* Ensure font consistency */
+  background-color: #F9FAFB;
+}
+.formGroup select:focus,
+.formGroup input[type="text"]:focus {
+  outline: none;
+  border-color: #2563EB; 
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); /* Adjusted focus glow */
+  background-color: #fff;
+}
+
+.languageToggle {
+  display: flex;
+  gap: 0.75rem; /* Adjusted */
+  align-items: center;
+  margin-top: 0.25rem; /* Space above buttons */
+}
+
+.languageToggle button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  background-color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.1s ease;
+}
+.languageToggle button.active {
+  background-color: #2563EB; 
+  color: white;
+  border-color: #2563EB;
+}
+.languageToggle button:not(.active):hover {
+  border-color: #2563EB;
+  color: #2563EB;
+}
+.languageToggle button:active {
+  transform: scale(0.97);
+}
+
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 0.75rem; /* Adjusted */
+}
+.checkboxContainer input[type="checkbox"] {
+  margin-left: 0.6rem; /* RTL, adjusted */
+  width: 17px; /* Adjusted */
+  height: 17px;
+  accent-color: #059669; 
+}
+.checkboxContainer .checkboxLabel { /* Ensure label aligns well with checkbox */
+  font-weight: 400; /* Regular weight for checkbox label */
+  font-size: 0.95rem;
+  color: #4B5563;
+  cursor: pointer;
+}
+
+
+.actionButtonsContainer { /* New container for better layout of action buttons */
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap */
+  gap: 0.75rem;
+  margin-top: 0.5rem; /* Space above buttons */
+}
+
+.actionButton {
+  padding: 0.65rem 1.2rem; /* Adjusted */
+  font-size: 0.95rem; /* Adjusted */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.1s ease;
+  font-weight: 500;
+  border-width: 1px;
+  border-style: solid;
+  /* margin-right: 0.75rem; Removed, using gap in container */
+  /* margin-bottom: 0.5rem; Removed, using gap in container */
+}
+.actionButton:active {
+  transform: scale(0.98);
+}
+
+.actionButton.primary {
+  background-color: #2563EB; 
+  color: white;
+  border-color: #2563EB;
+}
+.actionButton.primary:hover {
+  background-color: #1D4ED8;
+  border-color: #1D4ED8;
+}
+.actionButton.secondary {
+  background-color: #6B7280; 
+  color: white;
+  border-color: #6B7280;
+}
+.actionButton.secondary:hover {
+  background-color: #4B5563;
+  border-color: #4B5563;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 1rem;
+  }
+  .pageContainer h1 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+  .section {
+    padding: 1rem;
+  }
+  .section h2 {
+    font-size: 1.25rem; /* Adjusted */
+    margin-bottom: 1rem;
+  }
+  .settingItem h3 {
+    font-size: 1.05rem;
+  }
+  .formGroup select, .formGroup input[type="text"] {
+    max-width: 100%; 
+  }
+  .actionButtonsContainer { /* Ensure buttons stack nicely */
+    flex-direction: column;
+  }
+  .actionButton {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.feedbackMessage { /* For any feedback like "Settings saved" */
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  border: 1px solid transparent;
+  background-color: #D1FAE5; /* Light green background for success */
+  color: #065F46; /* Darker Green for text */
+  border-color: #A7F3D0; /* Green border */
+}
+.feedbackMessage.error { /* If an error message style is needed */
+  background-color: #FEE2E2;
+  color: #991B1B;
+  border-color: #FCA5A5;
+}

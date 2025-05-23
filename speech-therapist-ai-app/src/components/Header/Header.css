@@ -1,0 +1,90 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.5rem; /* Slightly reduced padding */
+  background-color: #FFFFFF; /* White background for a cleaner look */
+  border-bottom: 1px solid #E5E7EB; /* Lighter border, more subtle */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03); /* Subtle shadow for depth */
+}
+
+.logo a {
+  font-size: 1.6rem; /* Slightly larger logo text */
+  font-weight: 700; /* Bolder for Assistant font */
+  text-decoration: none;
+  color: #2563EB; /* Medical Blue for logo */
+}
+
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+/* RTL: margin-left for spacing between nav items */
+.main-nav li {
+  margin-left: 1.5rem; 
+  margin-right: 0; /* Reset margin-right for RTL */
+}
+
+.main-nav li:last-child {
+  margin-left: 0; /* No margin for the last item */
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #6B7280; /* Professional Gray for nav links */
+  font-weight: 500; /* Good weight for Assistant */
+  padding: 0.5rem 0.25rem; /* Add some padding for better click area */
+  border-bottom: 2px solid transparent; /* For hover/active effect */
+  transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+}
+
+.main-nav a:hover,
+.main-nav a.active { /* Assuming NavLink will be used for active state */
+  color: #2563EB; /* Medical Blue for hover/active */
+  border-bottom-color: #2563EB; /* Medical Blue underline for hover/active */
+}
+
+/* Responsive adjustments for header */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0.7rem 1rem;
+    flex-direction: column; /* Stack logo and nav on smaller screens */
+    align-items: flex-start; /* Align items to the start (right in RTL) */
+  }
+
+  .logo a {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem; /* Space between logo and nav */
+  }
+
+  .main-nav ul {
+    flex-direction: column; /* Stack nav items */
+    width: 100%; /* Full width for nav list */
+  }
+
+  .main-nav li {
+    margin-left: 0; /* Remove horizontal margin */
+    margin-bottom: 0.5rem; /* Space between stacked nav items */
+    width: 100%;
+  }
+  
+  .main-nav li:last-child {
+    margin-bottom: 0;
+  }
+
+  .main-nav a {
+    display: block; /* Make links take full width for easier tapping */
+    padding: 0.6rem 0.2rem;
+    text-align: right; /* RTL: align text to right */
+  }
+
+  .main-nav a:hover,
+  .main-nav a.active {
+    border-bottom-color: transparent; /* Remove underline for stacked view if preferred */
+    background-color: #F3F4F6; /* Light background on hover/active for stacked links */
+    border-radius: 4px;
+  }
+}

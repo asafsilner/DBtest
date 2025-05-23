@@ -1,0 +1,276 @@
+/* ReportsPage.module.css */
+
+.pageContainer {
+  /* padding handled by Layout.css */
+}
+
+.pageContainer h1 {
+  font-size: 1.7rem; /* Adjusted */
+  color: #2563EB; /* Medical Blue */
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.section {
+  background-color: #fff;
+  padding: 1.25rem; /* Adjusted */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06); /* Softer */
+  margin-bottom: 1.5rem;
+}
+
+.section h2 {
+  font-size: 1.4rem; /* Adjusted */
+  color: #059669; /* Calm Green */
+  margin-top: 0;
+  margin-bottom: 1.25rem; /* Adjusted */
+  border-bottom: 2px solid #D1FAE5; /* Lighter green border */
+  padding-bottom: 0.6rem; /* Adjusted */
+  font-weight: 600;
+}
+
+/* Charts Section */
+.chartsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Adjusted minmax */
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.chartContainer {
+  padding: 1.25rem; /* Adjusted */
+  border: 1px solid #E5E7EB; 
+  border-radius: 8px; /* More rounded */
+  background-color: #fff; 
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03); /* Subtle shadow for chart cards */
+}
+
+.chartContainer h3 {
+  font-size: 1.05rem; /* Adjusted */
+  color: #374151; /* Dark Gray */
+  margin-bottom: 1rem; /* Increased margin */
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Summary Points */
+.summaryPoints {
+  display: grid; /* Changed to grid for better responsiveness */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.summaryBox {
+  flex: 1; /* Maintained for potential non-grid use, but grid handles sizing now */
+  padding: 1.25rem; /* Adjusted */
+  border-radius: 8px;
+  background-color: #F9FAFB; /* Very light gray */
+  border: 1px solid #E5E7EB; /* Subtle border */
+}
+
+.summaryBox h3 {
+  font-size: 1.1rem;
+  color: #1F2937; 
+  margin-top: 0;
+  margin-bottom: 0.75rem; /* Increased margin */
+  font-weight: 600;
+}
+
+.summaryBox ul {
+  list-style: disc;
+  padding-right: 1.5rem; /* RTL, adjusted */
+  margin: 0;
+  font-size: 0.9rem; /* Adjusted */
+  color: #4B5563; 
+  line-height: 1.7; /* Increased line height */
+}
+
+/* Custom Report Generation Section */
+.customReportForm {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted minmax */
+  gap: 1.25rem; /* Adjusted */
+  align-items: flex-end; 
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem; /* Adjusted */
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: #374151; 
+  font-size: 0.9rem;
+}
+
+.formGroup input[type="date"],
+.formGroup select {
+  padding: 0.6rem 0.75rem; /* Adjusted */
+  border: 1px solid #D1D5DB; 
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: 'Assistant', sans-serif; /* Ensure font consistency */
+  background-color: #F9FAFB;
+}
+.formGroup input[type="date"]:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: #2563EB; 
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); /* Adjusted focus glow */
+  background-color: #fff;
+}
+
+.focusAreas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem; /* Increased gap */
+  grid-column: span 2; /* Make focus areas span more width if possible */
+}
+@media (max-width: 700px) { /* Adjust span for smaller screens */
+  .focusAreas {
+    grid-column: span 1;
+  }
+}
+
+.focusAreas legend { /* Use legend for fieldset style */
+  font-weight: 500;
+  color: #374151; 
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  padding: 0; /* Reset default legend padding */
+}
+
+.focusAreas label {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem; /* Adjusted */
+  color: #4B5563;
+  font-weight: 400; /* Regular weight for checkbox labels */
+}
+.focusAreas input[type="checkbox"] {
+  margin-left: 0.6rem; /* RTL, adjusted */
+  width: 17px; /* Adjusted */
+  height: 17px;
+  accent-color: #059669; 
+}
+
+/* Report Buttons */
+.reportActions {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem; /* Adjusted gap */
+  justify-content: flex-start; 
+}
+
+.actionButton {
+  padding: 0.65rem 1.2rem; /* Adjusted */
+  font-size: 0.95rem; /* Adjusted */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.1s ease;
+  font-weight: 500;
+  border: 1px solid transparent;
+  text-decoration: none; 
+  display: inline-flex; /* For icon alignment */
+  align-items: center;
+  gap: 0.5rem; /* Space for icon */
+}
+.actionButton:active {
+  transform: scale(0.98);
+}
+
+.generateReport {
+  background-color: #2563EB; 
+  color: white;
+  border-color: #2563EB;
+}
+.generateReport:hover {
+  background-color: #1D4ED8;
+}
+
+.exportPdf {
+  background-color: #EF4444; 
+  color: white;
+  border-color: #EF4444;
+}
+.exportPdf:hover {
+  background-color: #DC2626;
+}
+.exportPdf.disabled, .exportPdf:disabled {
+  background-color: #BDBDBD; /* More distinct disabled gray */
+  border-color: #BDBDBD;
+  color: #757575;
+  cursor: not-allowed;
+}
+
+
+.exportDoc {
+  background-color: #3B82F6; 
+  color: white;
+  border-color: #3B82F6;
+}
+.exportDoc:hover {
+  background-color: #1E40AF; /* Darker shade for consistency */
+}
+
+.exportCsv {
+  background-color: #10B981; 
+  color: white;
+  border-color: #10B981;
+}
+.exportCsv:hover {
+  background-color: #047857; /* Darker shade */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 1rem;
+  }
+  .pageContainer h1 {
+    font-size: 1.6rem;
+  }
+  .section {
+    padding: 1rem;
+  }
+  .section h2 {
+    font-size: 1.25rem; /* Adjusted */
+  }
+  .chartsGrid {
+    grid-template-columns: 1fr; 
+  }
+  .summaryPoints {
+    grid-template-columns: 1fr; /* Stack summary boxes */
+  }
+  .customReportForm {
+    grid-template-columns: 1fr; 
+  }
+  .focusAreas { /* Ensure focus areas also stack correctly */
+    grid-column: span 1;
+  }
+  .reportActions {
+    flex-direction: column;
+  }
+  .actionButton {
+    width: 100%;
+    justify-content: center; /* Center text and icon in button */
+  }
+}
+
+.feedbackMessage { /* For PDF loading status */
+  font-size: 0.9rem;
+  color: #374151;
+  margin-left: 1rem; /* RTL: margin-right */
+  display: inline-block;
+}
+@media (max-width: 768px) {
+  .feedbackMessage {
+    display: block;
+    text-align: center;
+    margin: 0.5rem 0 0 0;
+  }
+}

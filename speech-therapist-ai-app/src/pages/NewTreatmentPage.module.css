@@ -1,0 +1,402 @@
+/* NewTreatmentPage.module.css */
+
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  /* background-color: #F9FAFB; Page background handled by Layout.css */
+}
+
+/* Header Section */
+.patientHeader {
+  background-color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04); /* Softer shadow */
+  border-right: 4px solid #2563EB; /* Medical Blue accent */
+}
+
+.patientHeader h1 {
+  font-size: 1.5rem; /* Adjusted font size */
+  color: #2563EB; /* Medical Blue */
+  margin-top: 0;
+  margin-bottom: 0.4rem; /* Adjusted margin */
+  font-weight: 600;
+}
+
+.patientHeader p {
+  font-size: 0.95rem; /* Adjusted font size */
+  color: #6B7280; /* Professional Gray */
+  margin-bottom: 0.25rem;
+}
+
+/* Main Layout: Recording/Transcription and Sidebar */
+.mainLayout {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.centerContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Recording Area */
+.recordingArea {
+  background-color: #fff;
+  padding: 1.25rem; /* Adjusted padding */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06); /* Softer shadow */
+  text-align: center;
+}
+
+.recordingArea h2 {
+  font-size: 1.25rem; /* Adjusted font size */
+  color: #374151; /* Dark Gray */
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.recordButtonContainer { /* New container for buttons */
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.recordButton {
+  padding: 0.7rem 1.3rem; /* Adjusted padding */
+  font-size: 1rem; /* Adjusted font size */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s, transform 0.1s ease;
+  min-width: 130px; /* Adjusted min-width */
+  font-weight: 500;
+}
+.recordButton:active {
+  transform: scale(0.97);
+}
+
+.startRecording {
+  background-color: #EF4444; /* Red */
+  color: white;
+}
+.startRecording:hover {
+  background-color: #DC2626; /* Darker Red */
+}
+.startRecording.recording { /* This class is applied when actually recording */
+  background-color: #D32F2F; /* Darker, more intense red when recording */
+  color: white;
+  cursor: default; /* Not clickable when already recording */
+}
+.startRecording.recording:hover {
+  background-color: #D32F2F; /* Keep same color on hover when recording */
+}
+
+
+.stopRecording {
+  background-color: #3B82F6; /* Blue */
+  color: white;
+}
+.stopRecording:hover {
+  background-color: #2563EB; /* Darker Blue */
+}
+.stopRecording:disabled {
+  background-color: #BDBDBD; /* More distinct disabled gray */
+  color: #757575;
+  cursor: not-allowed;
+}
+
+.timeIndicator {
+  font-size: 1.4rem; /* Adjusted font size */
+  color: #1F2937; /* Almost Black */
+  margin: 0.8rem 0; /* Adjusted margin */
+  font-family: 'Roboto Mono', 'monospace'; /* Monospaced font for timer, added Roboto Mono */
+}
+
+.progressBarContainer {
+  width: 100%;
+  background-color: #E5E7EB; 
+  border-radius: 6px; /* More rounded */
+  height: 12px; /* Slightly thicker */
+  margin-top: 0.75rem; /* Adjusted margin */
+  overflow: hidden;
+}
+
+.progressBar {
+  width: 0%; 
+  height: 100%;
+  background-color: #3B82F6; /* Blue for progress */
+  transition: width 0.1s linear;
+  border-radius: 6px 0 0 6px; /* Match container rounding */
+}
+
+/* Transcription Area */
+.transcriptionArea {
+  background-color: #fff;
+  padding: 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  height: 280px; /* Adjusted height */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column-reverse; 
+}
+
+.transcriptionArea h2 {
+  font-size: 1.25rem;
+  color: #374151;
+  margin-top: 0;
+  margin-bottom: 0.75rem; /* Adjusted margin */
+  position: sticky; 
+  top: -1.25rem; /* Adjust sticky position due to padding */
+  background-color: #fff; 
+  padding: 1.25rem 0 0.5rem 0; /* Add padding to sticky header */
+  z-index: 1;
+  font-weight: 600;
+}
+
+.transcriptionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.transcriptItem {
+  padding: 0.4rem 0.1rem; /* Adjusted padding */
+  border-bottom: 1px solid #F3F4F6; 
+  font-size: 0.9rem; /* Adjusted font size */
+  line-height: 1.5;
+}
+.transcriptItem:last-child {
+  border-bottom: none;
+}
+
+.transcriptSpeakerPatient {
+  color: #059669; 
+  font-weight: 600; /* Slightly bolder */
+}
+.transcriptSpeakerTherapist {
+  color: #2563EB; 
+  font-weight: 600; /* Slightly bolder */
+}
+.transcriptTimestamp {
+  color: #6B7280; 
+  margin-right: 0.5rem; /* RTL: margin-right */
+  font-size: 0.8rem; /* Adjusted font size */
+}
+.transcriptText {
+  color: #374151; 
+}
+.transcriptPlaceholder {
+  font-style: italic;
+  color: #9CA3AF;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+
+/* Sidebar - Current Goals Area */
+.sidebar {
+  width: 320px; 
+  flex-shrink: 0;
+  background-color: #fff;
+  padding: 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+}
+
+.sidebar h2 {
+  font-size: 1.25rem;
+  color: #059669; /* Calm Green */
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #D1FAE5; /* Lighter green border */
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.goalsList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  max-height: 200px; /* Max height for goals list before scroll */
+  overflow-y: auto;
+}
+
+.goalItem {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0; /* Adjusted padding */
+  color: #374151;
+  font-size: 0.9rem; /* Adjusted font size */
+}
+
+.goalItem input[type="checkbox"] {
+  margin-left: 0.6rem; /* RTL: margin-right */
+  width: 17px; /* Adjusted size */
+  height: 17px;
+  accent-color: #059669; /* Calm Green for checkbox */
+}
+
+.goalItem label {
+  flex-grow: 1;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.goalItem label.achieved {
+  text-decoration: line-through;
+  color: #9CA3AF; /* Gray for achieved goals */
+}
+
+.addGoalContainer {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.addGoalContainer input[type="text"] {
+  flex-grow: 1;
+  padding: 0.55rem; /* Adjusted padding */
+  border: 1px solid #D1D5DB;
+  border-radius: 6px; /* More rounded */
+  font-size: 0.9rem;
+  font-family: 'Assistant', sans-serif;
+}
+.addGoalContainer input[type="text"]:focus {
+  outline: none;
+  border-color: #059669;
+  box-shadow: 0 0 0 2px rgba(5, 150, 105, 0.15); /* Adjusted focus glow */
+}
+.addGoalContainer input::placeholder {
+  color: #9CA3AF;
+  font-size: 0.85rem;
+}
+
+.addGoalContainer button {
+  background-color: #059669; 
+  color: white;
+  padding: 0.55rem 0.9rem; /* Adjusted padding */
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s ease;
+}
+.addGoalContainer button:hover {
+  background-color: #047857; 
+}
+.addGoalContainer button:active {
+  transform: scale(0.97);
+}
+
+
+/* Bottom Buttons */
+.bottomActions {
+  display: flex;
+  justify-content: flex-start; /* Align to start (right in RTL) */
+  gap: 1rem;
+  padding: 1.25rem; /* Adjusted padding */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 -1px 4px rgba(0,0,0,0.04); /* Softer shadow on top */
+  margin-top: auto; 
+}
+
+.actionButton {
+  padding: 0.65rem 1.2rem; /* Adjusted padding */
+  font-size: 0.95rem; /* Adjusted font size */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.1s ease;
+  font-weight: 500;
+  border: 1px solid transparent; /* For consistent sizing */
+}
+.actionButton:active {
+  transform: scale(0.97);
+}
+
+.createSummary {
+  background-color: #2563EB; 
+  color: white;
+  border-color: #2563EB;
+}
+.createSummary:hover {
+  background-color: #1D4ED8;
+}
+
+.saveNoSummary {
+  background-color: #059669; 
+  color: white;
+  border-color: #059669;
+}
+.saveNoSummary:hover {
+  background-color: #047857;
+}
+
+.cancelTreatment {
+  background-color: transparent;
+  color: #EF4444; 
+  border-color: #EF4444;
+}
+.cancelTreatment:hover {
+  background-color: #FEF2F2; 
+  border-color: #DC2626;
+  color: #DC2626;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) { 
+  .mainLayout {
+    flex-direction: column-reverse; 
+  }
+  .sidebar {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) { 
+  .pageContainer {
+    padding: 1rem;
+  }
+  .patientHeader {
+    padding: 0.8rem 1rem;
+  }
+  .patientHeader h1 {
+    font-size: 1.3rem; /* Adjusted */
+  }
+  .patientHeader p {
+    font-size: 0.9rem;
+  }
+
+  .recordingArea, .transcriptionArea, .sidebar, .bottomActions {
+    padding: 1rem;
+  }
+  .recordingArea h2, .transcriptionArea h2, .sidebar h2 {
+    font-size: 1.15rem; /* Adjusted */
+  }
+
+  .recordButton {
+    font-size: 0.95rem; /* Adjusted */
+    padding: 0.6rem 0.9rem; /* Adjusted */
+    min-width: 110px; /* Adjusted */
+  }
+  .timeIndicator {
+    font-size: 1.2rem; /* Adjusted */
+  }
+  .bottomActions {
+    flex-direction: column; 
+  }
+  .actionButton {
+    width: 100%;
+    text-align: center;
+  }
+}

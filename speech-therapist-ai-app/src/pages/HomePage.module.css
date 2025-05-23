@@ -1,0 +1,178 @@
+/* HomePage.module.css */
+
+.pageContainer {
+  display: flex;
+  gap: 1.5rem; 
+  /* padding: 1.5rem; Removed, as Layout.css handles main content padding */
+}
+
+.mainContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cardsContainer {
+  display: grid; /* Changed to grid for better responsiveness */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+  gap: 1.5rem; /* Increased gap for better spacing */
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Softer shadow */
+  padding: 1.25rem; /* Slightly adjusted padding */
+  display: flex; /* For aligning icon and text */
+  flex-direction: column; /* Stack icon and text vertically */
+  justify-content: space-between;
+  border-right: 4px solid #2563EB; /* Medical Blue accent, slightly thinner */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.cardHeader { /* New class for icon + title */
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.cardIcon { /* Placeholder for future icons */
+  font-size: 1.8rem; /* Example size */
+  color: #2563EB; /* Medical Blue */
+  margin-left: 0.75rem; /* RTL: margin-right */
+  /* Example: content: '👤'; using ::before or an actual icon library */
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0; /* Handled by cardHeader spacing */
+  color: #2563EB; /* Medical Blue */
+  font-size: 1.2rem; /* Adjusted font size */
+  font-weight: 600; /* Good weight for Assistant */
+}
+
+.card p {
+  font-size: 1.3rem; /* Larger for emphasis on the number */
+  font-weight: 700; /* Bolder for the number */
+  color: #374151; /* Darker Gray for the number */
+  margin-bottom: 0.25rem;
+}
+.card .cardDescription { /* New class for the descriptive text */
+  font-size: 0.9rem;
+  color: #6B7280; /* Professional Gray */
+}
+
+
+.announcementsBoard {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  padding: 1.25rem;
+}
+
+.announcementsBoard h2 {
+  color: #059669; /* Calm Green */
+  margin-top: 0;
+  font-size: 1.3rem; /* Adjusted font size */
+  font-weight: 600;
+  border-bottom: 2px solid #D1FAE5; /* Lighter green border */
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.announcementsBoard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.announcementsBoard li {
+  padding: 0.6rem 0.2rem; /* Adjusted padding */
+  border-bottom: 1px solid #F3F4F6; /* Lighter border */
+  color: #4B5563; /* Slightly darker gray for better readability */
+  font-size: 0.95rem;
+}
+
+.announcementsBoard li:last-child {
+  border-bottom: none;
+}
+
+.sidebar {
+  width: 300px; /* Slightly wider sidebar */
+  flex-shrink: 0;
+  background-color: #FFFFFF; 
+  padding: 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  border-left: 1px solid #E5E7EB; /* RTL: border-right */
+}
+
+.sidebar h2 {
+  color: #2563EB; /* Medical Blue */
+  font-size: 1.3rem; /* Adjusted font size */
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #DBEAFE; /* Lighter blue border */
+  padding-bottom: 0.5rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  padding: 0.7rem 0.2rem; /* Adjusted padding */
+  color: #4B5563; 
+  cursor: pointer; 
+  border-bottom: 1px dashed #E5E7EB; /* Lighter dashed border */
+  transition: color 0.2s ease-in-out;
+  font-size: 0.95rem;
+}
+
+.sidebar li:hover {
+  color: #059669; /* Calm Green on hover */
+}
+
+.sidebar li:last-child {
+  border-bottom: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) { /* Medium devices (tablets, less than 992px) */
+  .pageContainer {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%; 
+    margin-top: 1.5rem;
+    border-left: none; /* Remove border when stacked */
+  }
+}
+
+@media (max-width: 768px) { /* Small devices (landscape phones, less than 768px) */
+  .cardsContainer {
+    grid-template-columns: 1fr; /* Single column for cards on mobile */
+  }
+  .card {
+    padding: 1rem;
+  }
+   .card h3 {
+    font-size: 1.1rem;
+  }
+  .card p {
+    font-size: 1.2rem;
+  }
+  .announcementsBoard h2, .sidebar h2 {
+    font-size: 1.2rem;
+  }
+}
