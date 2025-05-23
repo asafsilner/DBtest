@@ -1,0 +1,265 @@
+/* TreatmentSummaryPage.module.css */
+
+.pageContainer {
+  /* padding: 1.5rem; Handled by Layout.css */
+  /* background-color: #F9FAFB; Handled by Layout.css */
+}
+
+/* Header Section */
+.header {
+  background-color: #fff;
+  padding: 1.25rem 1.5rem; /* Increased padding */
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04); /* Softer shadow */
+  margin-bottom: 1.5rem;
+  border-right: 4px solid #059669; /* Calm Green accent */
+}
+
+.header h1 {
+  font-size: 1.7rem; /* Adjusted font size */
+  color: #059669; /* Calm Green */
+  margin-top: 0;
+  margin-bottom: 0.3rem; /* Adjusted margin */
+  font-weight: 600;
+}
+
+.header p {
+  font-size: 0.95rem; /* Adjusted font size */
+  color: #6B7280; /* Professional Gray */
+  margin-bottom: 0;
+}
+
+/* Main Split Layout */
+.mainLayout {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.panel {
+  background-color: #fff;
+  padding: 1.25rem; /* Adjusted padding */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06); /* Softer shadow */
+  flex: 1; 
+  min-width: 300px; 
+}
+
+.panel h2 {
+  font-size: 1.3rem; /* Adjusted font size */
+  color: #374151; /* Dark Gray */
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #E5E7EB; 
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+/* Left Panel - Transcription */
+.transcriptionDisplayContainer { /* New container for display + label */
+  margin-bottom: 1rem;
+}
+.transcriptionDisplayContainer label {
+  display: block;
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+}
+
+.transcriptionDisplay {
+  white-space: pre-wrap; 
+  background-color: #F9FAFB; /* Very light gray for display */
+  padding: 0.85rem; /* Adjusted padding */
+  border-radius: 6px; /* More rounded */
+  border: 1px solid #E5E7EB; /* Subtle border for the display area */
+  margin-bottom: 0.5rem; /* Space between display and textarea */
+  max-height: 220px; 
+  overflow-y: auto;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #374151;
+}
+
+.transcriptionDisplay .speakerTherapist {
+  font-weight: 600; /* Slightly bolder */
+  color: #2563EB; /* Medical Blue */
+}
+
+.transcriptionDisplay .speakerPatient {
+  font-weight: 600; /* Slightly bolder */
+  color: #059669; /* Calm Green */
+}
+
+.textArea {
+  width: 100%;
+  min-height: 180px; /* Adjusted height */
+  padding: 0.85rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  resize: vertical;
+  font-family: 'Assistant', sans-serif; /* Ensure font consistency */
+  background-color: #F9FAFB;
+}
+.textArea::placeholder {
+  color: #9CA3AF;
+  font-size: 0.9rem;
+}
+
+.textArea:focus {
+  outline: none;
+  border-color: #2563EB; 
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); /* Adjusted focus glow */
+  background-color: #fff;
+}
+
+/* Right Panel - AI Summary & Goals */
+.summarySection {
+  margin-bottom: 1.25rem; /* Adjusted margin */
+}
+
+.summarySection h3 {
+  font-size: 1.05rem; /* Adjusted font size */
+  color: #1F2937; 
+  margin-bottom: 0.4rem; /* Adjusted margin */
+  font-weight: 600;
+}
+
+.summarySection p {
+  font-size: 0.9rem; /* Adjusted font size */
+  color: #4B5563; 
+  margin-bottom: 0.6rem; /* Adjusted margin */
+  padding-right: 0.75rem; 
+  border-right: 3px solid #E5E7EB; /* Lighter border */
+  line-height: 1.5;
+}
+
+.suggestedGoalsList {
+  list-style: disc;
+  padding-right: 1.25rem; /* RTL: padding-right, adjusted */
+  margin-bottom: 1rem;
+}
+
+.suggestedGoalsList li {
+  font-size: 0.9rem; 
+  color: #4B5563;
+  margin-bottom: 0.35rem; /* Adjusted margin */
+  line-height: 1.5;
+}
+
+/* Bottom Buttons */
+.bottomActions {
+  display: flex;
+  justify-content: flex-start; 
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem; /* Adjusted padding */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 -1px 4px rgba(0,0,0,0.04); /* Softer shadow */
+}
+
+.actionButton {
+  padding: 0.65rem 1.2rem; /* Adjusted padding */
+  font-size: 0.95rem; /* Adjusted font size */
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.1s ease;
+  font-weight: 500;
+  border: 1px solid transparent;
+  text-decoration: none; /* For PDFDownloadLink */
+  display: inline-block; /* For PDFDownloadLink */
+}
+.actionButton:active {
+  transform: scale(0.97);
+}
+
+
+.saveSummary {
+  background-color: #059669; 
+  color: white;
+  border-color: #059669;
+}
+.saveSummary:hover {
+  background-color: #047857;
+}
+
+.exportPdf {
+  background-color: #2563EB; 
+  color: white;
+  border-color: #2563EB;
+}
+.exportPdf:hover {
+  background-color: #1D4ED8;
+}
+.exportPdf.disabled, .exportPdf:disabled { /* Ensure both class and attribute work */
+  background-color: #BDBDBD; /* More distinct disabled gray */
+  border-color: #BDBDBD;
+  color: #757575;
+  cursor: not-allowed;
+}
+
+.returnToEdit {
+  background-color: transparent;
+  color: #6B7280; 
+  border-color: #D1D5DB;
+}
+.returnToEdit:hover {
+  background-color: #F3F4F6; 
+  border-color: #9CA3AF;
+  color: #4B5563;
+}
+
+.feedbackMessage { /* For loading/success/error messages related to PDF */
+  font-size: 0.9rem;
+  color: #374151;
+  margin-left: 1rem; /* RTL: margin-right */
+  display: inline-block;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) { 
+  .mainLayout {
+    flex-direction: column;
+  }
+  .panel {
+    min-width: 100%; 
+  }
+}
+
+@media (max-width: 768px) { 
+  .pageContainer {
+    padding: 1rem;
+  }
+  .header {
+    padding: 1rem; /* Adjusted */
+  }
+  .header h1 {
+    font-size: 1.5rem; /* Adjusted */
+  }
+  .header p {
+    font-size: 0.9rem;
+  }
+
+  .panel {
+    padding: 1rem;
+  }
+  .panel h2 {
+    font-size: 1.2rem; /* Adjusted */
+  }
+
+  .bottomActions {
+    flex-direction: column; 
+  }
+  .actionButton {
+    width: 100%;
+    text-align: center;
+  }
+  .feedbackMessage {
+    display: block;
+    text-align: center;
+    margin: 0.5rem 0 0 0;
+  }
+}

@@ -1,0 +1,227 @@
+/* TreatmentHistoryPage.module.css */
+
+.pageContainer {
+  /* padding: 1.5rem; Handled by Layout.css */
+  /* background-color: #F9FAFB; Handled by Layout.css */
+}
+
+.pageContainer h1 {
+  font-size: 1.7rem; /* Adjusted font size */
+  color: #2563EB; /* Medical Blue */
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Filter Section */
+.filterControls {
+  background-color: #fff;
+  padding: 1.25rem; /* Adjusted padding */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06); /* Softer shadow */
+  margin-bottom: 1.5rem;
+  display: grid; /* Changed to grid for better alignment */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
+  gap: 1.25rem; /* Adjusted gap */
+  align-items: flex-end; 
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem; /* Adjusted gap */
+}
+
+.filterGroup label {
+  font-weight: 500;
+  color: #374151; /* Dark Gray */
+  font-size: 0.9rem;
+}
+
+.filterGroup input[type="text"],
+.filterGroup input[type="date"],
+.filterGroup select {
+  padding: 0.6rem 0.75rem; /* Adjusted padding */
+  border: 1px solid #D1D5DB; 
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: 'Assistant', sans-serif; /* Ensure font consistency */
+  background-color: #F9FAFB;
+}
+.filterGroup input::placeholder {
+  color: #9CA3AF;
+  font-size: 0.9rem;
+}
+
+.filterGroup input[type="text"]:focus,
+.filterGroup input[type="date"]:focus,
+.filterGroup select:focus {
+  outline: none;
+  border-color: #2563EB; 
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); /* Adjusted focus glow */
+  background-color: #fff;
+}
+
+.resetFiltersButton {
+  padding: 0.6rem 1.2rem; /* Adjusted padding */
+  background-color: #6B7280; /* Professional Gray */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s ease;
+  height: calc(0.6rem * 2 + 0.75rem * 2 + 2px); /* Match input height (approx) */
+  align-self: stretch; /* Make button stretch if grid row is taller */
+  grid-column: span 1 / auto; /* Ensure it doesn't always take full width if last item */
+}
+.resetFiltersButton:hover {
+  background-color: #4B5563; /* Darker Gray */
+}
+.resetFiltersButton:active {
+  transform: scale(0.98);
+}
+
+
+/* Treatment List / Timeline Section */
+.treatmentList {
+  display: grid;
+  gap: 1.25rem; /* Adjusted gap */
+  grid-template-columns: 1fr; 
+}
+
+.treatmentCard {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07); /* Softer shadow */
+  padding: 1.25rem; /* Adjusted padding */
+  border-right-width: 4px; /* Standardize border width */
+  border-right-style: solid;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.treatmentCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.09);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Align items to top for better multiline handling */
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap; /* Allow header items to wrap */
+  gap: 0.5rem; /* Gap if items wrap */
+}
+
+.patientName {
+  font-size: 1.15rem; /* Adjusted font size */
+  color: #1F2937; /* Almost Black */
+  font-weight: 600;
+  margin: 0;
+}
+.treatmentDate {
+  font-size: 0.85rem;
+  color: #6B7280;
+}
+
+.statusPill {
+  padding: 0.3rem 0.8rem; /* Adjusted padding */
+  border-radius: 16px; /* More pill-like */
+  font-size: 0.75rem; /* Adjusted font size */
+  font-weight: 600; /* Bolder */
+  color: white;
+  text-align: center;
+  min-width: 70px; /* Adjusted min-width */
+  text-transform: uppercase; /* Uppercase for status */
+  letter-spacing: 0.5px;
+}
+
+/* Status specific border colors for the card itself */
+.statusCompleted { border-color: #059669; }
+.statusDraft { border-color: #F59E0B; }
+.statusCancelled { border-color: #EF4444; }
+
+/* Status specific background colors for the pill */
+.statusPill.statusCompleted { background-color: #059669; }
+.statusPill.statusDraft { background-color: #F59E0B; }
+.statusPill.statusCancelled { background-color: #EF4444; }
+
+
+.cardContent p {
+  font-size: 0.9rem; /* Adjusted font size */
+  color: #4B5563; /* Slightly darker gray */
+  margin-bottom: 0.35rem; /* Adjusted margin */
+  line-height: 1.5;
+}
+.cardContent p strong {
+  color: #374151; 
+  font-weight: 500;
+}
+
+.cardFooter {
+  margin-top: 1rem;
+  text-align: left; /* RTL: text-align: right */
+}
+
+.expandButton {
+  background-color: #2563EB; /* Medical Blue */
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s ease;
+}
+.expandButton:hover {
+  background-color: #1D4ED8; /* Darker Medical Blue */
+}
+.expandButton:active {
+  transform: scale(0.98);
+}
+
+.noResultsMessage {
+  text-align: center;
+  font-size: 1.05rem; /* Adjusted font size */
+  color: #4B5563; /* Slightly darker gray */
+  padding: 2rem;
+  background-color: #F3F4F6; /* Light gray background */
+  border-radius: 8px;
+  border: 1px solid #E5E7EB; /* Gray border */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) { 
+  /* Filter controls already use grid for responsiveness */
+}
+
+@media (max-width: 768px) { 
+  .pageContainer {
+    padding: 1rem;
+  }
+  .pageContainer h1 {
+    font-size: 1.6rem;
+  }
+  .filterControls {
+    padding: 1rem;
+    grid-template-columns: 1fr; /* Stack filters on mobile */
+  }
+  .resetFiltersButton {
+    height: auto; /* Reset height for stacked layout */
+  }
+  .treatmentCard {
+    padding: 1rem;
+  }
+  .cardHeader {
+    align-items: center; /* Center align for simpler mobile look */
+  }
+  .patientName {
+    font-size: 1.1rem;
+  }
+  .statusPill {
+    margin-top: 0.3rem; /* Add some space if it wraps */
+  }
+}

@@ -1,0 +1,135 @@
+/* AddPatientPage.module.css */
+
+.pageContainer {
+  padding: 1.5rem; /* Padding handled by Layout.css, but can keep specific page padding if needed */
+  max-width: 750px; /* Slightly increased max-width */
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06); /* Softer shadow */
+}
+
+.pageContainer h1 {
+  color: #2563EB; /* Medical Blue */
+  text-align: center;
+  margin-bottom: 2rem; /* Increased margin */
+  font-size: 1.7rem; /* Adjusted font size */
+  font-weight: 600;
+}
+
+.addPatientForm {
+  display: grid; /* Using grid for better layout control */
+  grid-template-columns: 1fr; /* Default to single column */
+  gap: 1.25rem; /* Gap between form groups */
+}
+
+/* For two-column layout on wider screens */
+@media (min-width: 600px) {
+  .addPatientForm {
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    gap: 1.5rem 1.25rem; /* Row and column gap */
+  }
+  .formGroupFullWidth { /* Class to make a form group span both columns */
+    grid-column: 1 / -1;
+  }
+}
+
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem; /* Reduced gap between label and input */
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: #374151; /* Darker Gray for labels */
+  font-size: 0.95rem; /* Adjusted font size */
+}
+
+.formGroup input[type="text"],
+.formGroup input[type="number"],
+.formGroup input[type="date"],
+.formGroup select,
+.formGroup textarea {
+  padding: 0.7rem 0.85rem; /* Adjusted padding */
+  border: 1px solid #D1D5DB; /* Light Gray border */
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: 'Assistant', sans-serif; /* Ensure font consistency */
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  background-color: #F9FAFB; /* Very light background for inputs */
+}
+.formGroup input::placeholder, 
+.formGroup textarea::placeholder {
+  color: #9CA3AF; /* Lighter placeholder text */
+  font-size: 0.95rem;
+}
+
+
+.formGroup input[type="text"]:focus,
+.formGroup input[type="number"]:focus,
+.formGroup input[type="date"]:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: #2563EB; /* Medical Blue on focus */
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15); /* Adjusted focus glow */
+  background-color: #fff;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 100px; /* Increased min-height */
+}
+
+.actionsContainer { /* Container for buttons */
+  grid-column: 1 / -1; /* Span full width in grid layout */
+  display: flex;
+  justify-content: center; /* Center buttons */
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.submitButton {
+  background-color: #059669; /* Calm Green */
+  color: white;
+  padding: 0.75rem 1.8rem; /* Adjusted padding */
+  border: none;
+  border-radius: 6px;
+  font-size: 1.05rem; /* Adjusted font size */
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+}
+
+.submitButton:hover {
+  background-color: #047857; /* Darker Calm Green on hover */
+}
+.submitButton:active {
+  transform: scale(0.98);
+}
+
+.message { /* Common style for error and success messages */
+  padding: 0.85rem 1rem; /* Adjusted padding */
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 1.5rem; /* Increased margin */
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+  grid-column: 1 / -1; /* Span full width */
+}
+
+.errorMessage {
+  composes: message; /* Inherit common styles */
+  color: #991B1B; /* Darker Red for text */
+  background-color: #FEE2E2; /* Light red background */
+  border-color: #FCA5A5; /* Red border */
+}
+
+.successMessage {
+  composes: message;
+  color: #065F46; /* Darker Green for text */
+  background-color: #D1FAE5; /* Light green background */
+  border-color: #A7F3D0; /* Green border */
+}

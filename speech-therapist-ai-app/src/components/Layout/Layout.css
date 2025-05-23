@@ -1,0 +1,22 @@
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #F9FAFB; /* Using the global background color from index.css */
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 1.5rem; 
+  /* Max-width and centering for larger screens can improve readability for content-heavy pages */
+  /* max-width: 1200px; */ /* Uncomment if a max-width is desired */
+  /* margin: 0 auto; */   /* Uncomment for centering if max-width is used */
+  width: 100%; /* Ensure it takes full width by default */
+  box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem; /* Reduce padding on smaller screens */
+  }
+}
