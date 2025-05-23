@@ -1,0 +1,4 @@
+node_modules
+uploads/
+app.db
+app.db-journal
