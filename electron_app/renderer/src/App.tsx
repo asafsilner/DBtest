@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import PatientPage from './pages/PatientPage';
 import RecordingPage from './pages/RecordingPage';
-import ProtocolPage from './pages/ProtocolPage'; // Import the ProtocolPage
+import ProtocolPage from './pages/ProtocolPage';
+import TrainingPage from './pages/TrainingPage';
+import SearchPage from './pages/SearchPage'; // Import the SearchPage
 import './index.css'; // Ensure Tailwind CSS is imported
 
-type Page = 'patients' | 'recording' | 'protocols';
+type Page = 'patients' | 'recording' | 'protocols' | 'training' | 'search';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('patients');
@@ -17,6 +19,10 @@ function App() {
         return <RecordingPage />;
       case 'protocols':
         return <ProtocolPage />;
+      case 'training':
+        return <TrainingPage />;
+      case 'search':
+        return <SearchPage />;
       default:
         return <PatientPage />;
     }
@@ -46,10 +52,22 @@ function App() {
             >
               Protocols
             </button>
+            <button
+              onClick={() => setCurrentPage('training')}
+              className={`hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium ${currentPage === 'training' ? 'bg-gray-900' : ''}`}
+            >
+              Training Center
+            </button>
+            <button
+              onClick={() => setCurrentPage('search')}
+              className={`hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium ${currentPage === 'search' ? 'bg-gray-900' : ''}`}
+            >
+              Search
+            </button>
           </nav>
         </div>
       </header>
-      <main className="p-4 flex-grow">
+      <main className="p-4 flex-grow bg-gray-100">
         {renderPage()}
       </main>
       <footer className="bg-gray-200 text-center p-3 text-sm text-gray-600">

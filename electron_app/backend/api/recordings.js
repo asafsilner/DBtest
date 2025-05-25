@@ -50,41 +50,98 @@ router.post('/:id/stop', async (req, res) => {
       });
     });
 
-    // Call Python AI backend for transcription
-    console.log(`Requesting transcription for recording ID: ${id} from AI service...`);
-    const aiResponse = await axios.post(`${AI_SERVICE_URL}/ai/transcribe`, {
+    // 1. Call Python AI backend for detailed transcription (simulating WhisperX)
+    console.log(`Requesting detailed transcription for recording ID: ${id} from AI speech service...`);
+    const transcriptionResponse = await axios.post(`${AI_SERVICE_URL}/speech/transcribe_completed_audio`, {
       recording_id: id,
-      // In a real scenario, you might send audio data or a path to it
-      dummy_data: "some_audio_info_or_id", 
+      audio_data_ref: "path/to/simulated_audio_for_" + id, // Dummy reference
     });
 
-    if (aiResponse.status === 200 && aiResponse.data) {
-      const { transcription, segments } = aiResponse.data;
-      const transcriptionText = transcription; // Full text
-      const segmentsJson = JSON.stringify(segments || []); // Store segments as JSON
+    let transcriptionText = "";
+    let initialSegments = []; // Segments from transcription service
 
-      // Update recording with transcription data
-      updateSql = 'UPDATE recordings SET status = ?, transcription_text = ?, transcription_segments = ? WHERE id = ?';
-      status = 'transcribed';
-      await new Promise((resolve, reject) => {
-        db.run(updateSql, [status, transcriptionText, segmentsJson, id], function(err) {
-          if (err) {
-            console.error("Error saving transcription:", err.message);
-            // Even if saving transcription fails, the recording was stopped.
-            // Decide on error handling: maybe respond with success but log error.
-            return reject({ status: 500, error: 'Failed to save transcription data', details: err.message });
-          }
-          console.log(`Transcription for recording ID: ${id} saved.`);
-          resolve();
-        });
-      });
+    if (transcriptionResponse.status === 200 && transcriptionResponse.data && transcriptionResponse.data.is_final) {
+      transcriptionText = transcriptionResponse.data.text;
+      initialSegments = transcriptionResponse.data.segments || [];
+      console.log(`Initial transcription for recording ID: ${id} received.`);
     } else {
-      // AI service did not return a successful transcription
-      console.warn(`AI service failed to transcribe recording ID: ${id}. Status: ${aiResponse.status}`);
-      status = 'error_transcription'; // Custom status if transcription failed
-      updateSql = 'UPDATE recordings SET status = ? WHERE id = ?';
-      db.run(updateSql, [status, id]); // Log error, but don't fail the whole request
+      const errorDetail = transcriptionResponse.data ? JSON.stringify(transcriptionResponse.data) : `Status: ${transcriptionResponse.status}`;
+      console.warn(`AI speech service failed to transcribe recording ID: ${id}. ${errorDetail}`);
+      status = 'error_transcription_failed'; // More specific error
+      // Early update to DB if transcription fails fundamentally
+      db.run('UPDATE recordings SET status = ?, endTime = ? WHERE id = ?', [status, endTime, id]);
+      return res.status(500).json({ error: 'Transcription process failed.', details: errorDetail});
     }
+
+    // 2. Call Python AI backend for speaker diarization
+    console.log(`Requesting diarization for recording ID: ${id} from AI speech service...`);
+    const diarizationResponse = await axios.post(`${AI_SERVICE_URL}/speech/diarize`, {
+      recording_id: id,
+      // segments: initialSegments, // Optionally pass segments if diarization uses them
+      num_speakers: null // Let AI decide, or provide a hint
+    });
+
+    let finalSegments = initialSegments; // Default to initial segments
+
+    if (diarizationResponse.status === 200 && diarizationResponse.data) {
+      const diarizationResults = diarizationResponse.data; // List of {speaker, start_time, end_time}
+      console.log(`Diarization results for recording ID: ${id} received.`);
+      
+      // Merge diarization results into transcription segments
+      // This is a simple merge logic: assumes segments from transcription and diarization align or can be matched by time.
+      // A more robust merge would involve complex logic to map speakers to word-level segments.
+      // For this placeholder, we'll try to assign speaker to existing segments based on time overlap.
+      finalSegments = initialSegments.map(seg => {
+        const matchingDiarization = diarizationResults.find(
+          d => seg.start_time >= d.start_time && seg.end_time <= d.end_time
+        );
+        return { ...seg, speaker: matchingDiarization ? matchingDiarization.speaker : (seg.speaker || "UNKNOWN") };
+      });
+      console.log(`Merged segments for recording ID: ${id} prepared.`);
+    } else {
+      console.warn(`AI speech service failed to diarize for recording ID: ${id}. Status: ${diarizationResponse.status}`);
+      // Proceed with transcription segments without speaker labels if diarization fails
+      // Or, set a different status like 'transcribed_no_diarization'
+    }
+    
+    const segmentsJson = JSON.stringify(finalSegments);
+    let nerResultsJson = null;
+
+    // 3. Call Python AI backend for NER if transcription was successful
+    if (transcriptionText) {
+      console.log(`Requesting NER for recording ID: ${id} from AI NLP service...`);
+      try {
+        const nerResponse = await axios.post(`${AI_SERVICE_URL}/nlp/ner`, {
+          recording_id: id,
+          text: transcriptionText,
+        });
+        if (nerResponse.status === 200 && nerResponse.data && nerResponse.data.entities) {
+          nerResultsJson = JSON.stringify(nerResponse.data.entities);
+          console.log(`NER results for recording ID: ${id} received.`);
+        } else {
+          console.warn(`AI NLP service failed to extract entities for recording ID: ${id}. Status: ${nerResponse.status}`);
+          // Proceed without NER results, or set a specific status
+        }
+      } catch (nerError) {
+        console.error(`Error calling NER service for recording ID ${id}:`, nerError.message);
+        // Proceed without NER results
+      }
+    }
+    
+    // 4. Update recording with final transcription, diarization, and NER data
+    updateSql = 'UPDATE recordings SET status = ?, transcription_text = ?, transcription_segments = ?, ner_results = ? WHERE id = ?';
+    status = 'transcribed'; // Mark as transcribed (with or without diarization/NER)
+    
+    await new Promise((resolve, reject) => {
+      db.run(updateSql, [status, transcriptionText, segmentsJson, nerResultsJson, id], function(err) {
+        if (err) {
+          console.error("Error saving final transcription, diarization, and NER data:", err.message);
+          return reject({ status: 500, error: 'Failed to save all processed data', details: err.message });
+        }
+        console.log(`Final transcription, diarization, and NER data for recording ID: ${id} saved.`);
+        resolve();
+      });
+    });
 
     // Fetch the final state of the recording
     const finalRecordingSql = "SELECT * FROM recordings WHERE id = ?";
@@ -112,19 +169,23 @@ router.post('/:id/stop', async (req, res) => {
 // GET /api/recordings/:id/transcription - Fetch transcription for a recording
 router.get('/:id/transcription', (req, res) => {
   const { id } = req.params;
-  const sql = "SELECT id, transcription_text, transcription_segments FROM recordings WHERE id = ? AND status = 'transcribed'";
+  // Fetch transcription text, segments, and NER results
+  const sql = "SELECT id, transcription_text, transcription_segments, ner_results FROM recordings WHERE id = ? AND (status = 'transcribed' OR status = 'error_transcription_failed')";
   
   db.get(sql, [id], (err, row) => {
     if (err) {
-      console.error("Error fetching transcription:", err.message);
-      return res.status(500).json({ error: 'Failed to retrieve transcription', details: err.message });
+      console.error("Error fetching processed data for recording:", err.message);
+      return res.status(500).json({ error: 'Failed to retrieve processed data.', details: err.message });
     }
-    if (!row || !row.transcription_text) { // Check if transcription_text exists
-      return res.status(404).json({ message: `Transcription for recording ID ${id} not found or not yet available.` });
+    if (!row) {
+      return res.status(404).json({ message: `Processed data for recording ID ${id} not found or not yet available.` });
     }
+    // Even if transcription_text is null due to an error, we might still have an ID.
+    // The client should handle cases where transcription_text is null.
     res.json({
-      transcription: row.transcription_text,
+      transcription: row.transcription_text || "", // Ensure transcription is not null
       segments: row.transcription_segments ? JSON.parse(row.transcription_segments) : [],
+      ner_results: row.ner_results ? JSON.parse(row.ner_results) : [],
     });
   });
 });

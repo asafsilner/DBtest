@@ -14,6 +14,7 @@ app.use('/api/recordings', require('./api/recordings')); // Mount the recordings
 app.use('/api/protocols', require('./api/protocols')); // Mount the protocols router
 app.use('/api/files', require('./api/files')); // Mount the files router
 app.use('/api/summaries', require('./api/summaries')); // Mount the summaries router
+app.use('/api/search', require('./api/search')); // Mount the search router
 
 app.get('/', (req, res) => {
   res.send('Backend server is running');

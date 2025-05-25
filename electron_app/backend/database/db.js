@@ -81,6 +81,7 @@ const createRecordingsTable = () => {
       transcription_text TEXT, -- Store full transcription
       transcription_segments TEXT, -- Store segments as JSON
       summary_text TEXT, -- Store generated summary
+      ner_results TEXT, -- Store NER results as JSON
       FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE SET NULL,
       FOREIGN KEY (protocol_id) REFERENCES protocols(id) ON DELETE SET NULL
     )

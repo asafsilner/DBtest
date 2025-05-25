@@ -87,11 +87,13 @@ async def summarize_text(
   }
 
 # Placeholder for including routers from sub-services
-# from .speech import router as speech_router
-# from .nlp import router as nlp_router
+from .speech import transcription as speech_transcription_router
+from .nlp import ner as nlp_ner_router
+from .nlp import search as nlp_search_router # Import the new Search router
 
-# app.include_router(speech_router, prefix="/speech", tags=["speech"])
-# app.include_router(nlp_router, prefix="/nlp", tags=["nlp"])
+app.include_router(speech_transcription_router.router, prefix="/speech", tags=["speech"])
+app.include_router(nlp_ner_router.router, prefix="/nlp", tags=["nlp"])
+app.include_router(nlp_search_router.router, prefix="/nlp", tags=["nlp"]) # Include the Search router under /nlp
 
 
 # Pydantic model for request body if needed (FastAPI handles this with type hints)

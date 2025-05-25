@@ -1,2 +1,10 @@
 fastapi
 uvicorn[standard]
+whisperx
+pyannote.audio
+transformers
+sentence-transformers 
+# Add other AI-related Python dependencies here, e.g.:
+# torch
+# torchaudio
+# librosa
