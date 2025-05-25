@@ -3,10 +3,12 @@ import PatientPage from './pages/PatientPage';
 import RecordingPage from './pages/RecordingPage';
 import ProtocolPage from './pages/ProtocolPage';
 import TrainingPage from './pages/TrainingPage';
-import SearchPage from './pages/SearchPage'; // Import the SearchPage
+import SearchPage from './pages/SearchPage';
+import ReportPage from './pages/ReportPage';
+import ProtocolEditorPage from './pages/ProtocolEditorPage'; // Import the ProtocolEditorPage
 import './index.css'; // Ensure Tailwind CSS is imported
 
-type Page = 'patients' | 'recording' | 'protocols' | 'training' | 'search';
+type Page = 'patients' | 'recording' | 'protocols' | 'training' | 'search' | 'reports' | 'protocol_editor';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('patients');
@@ -23,6 +25,10 @@ function App() {
         return <TrainingPage />;
       case 'search':
         return <SearchPage />;
+      case 'reports':
+        return <ReportPage />;
+      case 'protocol_editor':
+        return <ProtocolEditorPage />;
       default:
         return <PatientPage />;
     }
@@ -63,6 +69,18 @@ function App() {
               className={`hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium ${currentPage === 'search' ? 'bg-gray-900' : ''}`}
             >
               Search
+            </button>
+            <button
+              onClick={() => setCurrentPage('reports')}
+              className={`hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium ${currentPage === 'reports' ? 'bg-gray-900' : ''}`}
+            >
+              Reports
+            </button>
+            <button
+              onClick={() => setCurrentPage('protocol_editor')}
+              className={`hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium ${currentPage === 'protocol_editor' ? 'bg-gray-900' : ''}`}
+            >
+              Protocol Editor
             </button>
           </nav>
         </div>
