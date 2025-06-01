@@ -31,18 +31,18 @@ async def transcribe_audio(
   Returns a hardcoded dummy transcription.
   """
   print(f"AI Service: Received transcription request for recording_id: {recording_id}, data: {dummy_data}")
-  
+
   # Hardcoded dummy transcription
   dummy_transcription = "This is a dummy transcription from the AI service. It simulates a conversation."
   dummy_segments = [
     {"speaker": "SPEAKER_00", "startTime": 0.5, "endTime": 4.8, "text": "Hello, this is a dummy transcription segment."},
     {"speaker": "SPEAKER_01", "startTime": 5.2, "endTime": 9.3, "text": "And this is another segment from a different speaker."}
   ]
-  
+
   # Simulate some processing time
   # import asyncio
-  # await asyncio.sleep(2) 
-  
+  # await asyncio.sleep(2)
+
   return {
     "transcription": dummy_transcription,
     "segments": dummy_segments
@@ -68,7 +68,7 @@ async def summarize_text(
   """
   print(f"AI Service: Received summarization request for recording_id: {request_data.recording_id}")
   print(f"Transcription text received: '{request_data.transcription_text[:100]}...'") # Print first 100 chars
-  
+
   # Hardcoded dummy summary
   dummy_summary = (
     f"This is a dummy AI-generated summary for recording ID {request_data.recording_id}. "
@@ -76,11 +76,11 @@ async def summarize_text(
     "Further analysis would be required for a more detailed understanding, but this placeholder indicates "
     "that the summarization process was successfully invoked."
   )
-  
+
   # Simulate some processing time
   # import asyncio
-  # await asyncio.sleep(1) 
-  
+  # await asyncio.sleep(1)
+
   return {
     "recording_id": request_data.recording_id,
     "summary": dummy_summary
@@ -89,11 +89,13 @@ async def summarize_text(
 # Placeholder for including routers from sub-services
 from .speech import transcription as speech_transcription_router
 from .nlp import ner as nlp_ner_router
-from .nlp import search as nlp_search_router # Import the new Search router
+from .nlp import search as nlp_search_router
+from .training import jobs as training_jobs_router # Import the new Training router
 
 app.include_router(speech_transcription_router.router, prefix="/speech", tags=["speech"])
 app.include_router(nlp_ner_router.router, prefix="/nlp", tags=["nlp"])
-app.include_router(nlp_search_router.router, prefix="/nlp", tags=["nlp"]) # Include the Search router under /nlp
+app.include_router(nlp_search_router.router, prefix="/nlp", tags=["nlp"])
+app.include_router(training_jobs_router.router, prefix="/training", tags=["training"]) # Include the Training router
 
 
 # Pydantic model for request body if needed (FastAPI handles this with type hints)

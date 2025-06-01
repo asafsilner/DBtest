@@ -57,13 +57,13 @@ async def semantic_search_placeholder(
         if keyword in query_lower:
             results.extend(res_list)
             found = True
-    
+
     if not found:
         results.extend(dummy_search_results_db["default"])
-        
+
     # Sort by score for better presentation (descending)
     results.sort(key=lambda x: x.score, reverse=True)
-    
+
     return SearchResponse(results=results[:request.top_k], query_received=request.query)
 
 # Alternative: GET endpoint if query is simple enough (less common for "semantic" search usually)
@@ -85,10 +85,10 @@ async def semantic_search_get_placeholder(
         if keyword in query_lower:
             results.extend(res_list)
             found = True
-    
+
     if not found:
         results.extend(dummy_search_results_db["default"])
-        
+
     results.sort(key=lambda x: x.score, reverse=True)
-    
+
     return SearchResponse(results=results[:top_k], query_received=query)

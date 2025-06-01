@@ -50,7 +50,7 @@ router.post('/', (req, res) => {
 
   const sql = `INSERT INTO protocols (name, description, category, steps, createdAt, updatedAt)
                VALUES (?, ?, ?, ?, datetime('now'), datetime('now'))`;
-  
+
   db.run(sql, [name, description, category, stepsJson], function(err) {
     if (err) {
       console.error("Error creating protocol:", err.message);

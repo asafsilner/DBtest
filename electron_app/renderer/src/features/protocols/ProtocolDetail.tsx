@@ -41,7 +41,7 @@ const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onClose }) =>
           </button>
         )}
       </div>
-      
+
       {protocol.description && (
         <div className="mb-6">
           <h3 className="text-lg font-semibold text-gray-800 mb-1">Description</h3>
@@ -55,10 +55,10 @@ const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onClose }) =>
           <ul className="list-decimal list-inside space-y-2 pl-2">
             {protocol.steps.map((step, index) => (
               <li key={index} className="text-gray-700 p-2 bg-gray-50 rounded-md">
-                {typeof step === 'string' ? step : 
+                {typeof step === 'string' ? step :
                   // If step is an object, you might want to format it
                   // e.g., step.title, step.instruction. This is a basic example.
-                  Object.values(step).join(' - ') 
+                  Object.values(step).join(' - ')
                 }
               </li>
             ))}
@@ -71,7 +71,7 @@ const ProtocolDetail: React.FC<ProtocolDetailProps> = ({ protocol, onClose }) =>
       {protocol.createdAt && (
         <p className="text-xs text-gray-400 mt-6">
           Created: {new Date(protocol.createdAt).toLocaleDateString()}
-          {protocol.updatedAt && protocol.updatedAt !== protocol.createdAt && 
+          {protocol.updatedAt && protocol.updatedAt !== protocol.createdAt &&
            ` | Updated: ${new Date(protocol.updatedAt).toLocaleDateString()}`}
         </p>
       )}

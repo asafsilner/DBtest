@@ -52,7 +52,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
 
   const sql = `INSERT INTO patient_files (patient_id, original_filename, stored_filename, file_path, file_type, upload_date)
                VALUES (?, ?, ?, ?, ?, ?)`;
-  
+
   db.run(sql, [patient_id, originalname, filename, filePath, mimetype, uploadDate], function(err) {
     if (err) {
       console.error("Error saving file metadata to DB:", err.message);
@@ -74,7 +74,7 @@ router.post('/upload', upload.single('file'), (req, res) => {
 router.get('/patient/:patient_id', (req, res) => {
   const { patient_id } = req.params;
   const sql = "SELECT id, patient_id, original_filename, file_type, upload_date FROM patient_files WHERE patient_id = ? ORDER BY upload_date DESC";
-  
+
   db.all(sql, [patient_id], (err, rows) => {
     if (err) {
       console.error("Error fetching files for patient:", err.message);
@@ -100,7 +100,7 @@ router.get('/download/:file_id', (req, res) => {
     if (!row) {
       return res.status(404).json({ message: `File with ID ${file_id} not found.` });
     }
-    
+
     const filePath = row.file_path;
     if (!fs.existsSync(filePath)) {
         console.error("File not found on filesystem:", filePath);
@@ -122,7 +122,7 @@ router.get('/download/:file_id', (req, res) => {
 // DELETE /api/files/:file_id - Deletes a file record and the actual file
 router.delete('/:file_id', (req, res) => {
   const { file_id } = req.params;
-  
+
   // First, get file path from DB
   const selectSql = "SELECT file_path FROM patient_files WHERE id = ?";
   db.get(selectSql, [file_id], (err, row) => {
@@ -155,9 +155,9 @@ router.delete('/:file_id', (req, res) => {
             console.error("Error deleting file from filesystem:", unlinkErr.message);
             // Important: DB record is deleted, but file system deletion failed.
             // This state should be logged for potential manual cleanup.
-            return res.status(500).json({ 
-              message: 'File record deleted, but failed to delete file from filesystem. Please check server logs.', 
-              details: unlinkErr.message 
+            return res.status(500).json({
+              message: 'File record deleted, but failed to delete file from filesystem. Please check server logs.',
+              details: unlinkErr.message
             });
           }
           res.json({ message: `File with ID ${file_id} and its record deleted successfully.` });

@@ -9,7 +9,7 @@ router.post('/generate', (req, res) => {
 
   // Dummy patient data - in a real app, fetch from DB based on patient_id
   const patientName = patient_id ? `Patient ${patient_id}` : "Generic Patient";
-  
+
   let reportTitle = `${report_type || "General Report"} for ${patientName}`;
   let baseSections = [
       {
@@ -96,7 +96,7 @@ router.post('/generate', (req, res) => {
       {
         title: "Recommendations for School Environment",
         type: "text",
-        content: `For ${patientName}, the following strategies are recommended in the school setting: 
+        content: `For ${patientName}, the following strategies are recommended in the school setting:
 1. Allow for short breaks during long tasks.
 2. Provide clear, concise instructions.
 3. Positive reinforcement for on-task behavior.

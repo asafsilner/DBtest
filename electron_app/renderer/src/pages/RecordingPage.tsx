@@ -75,10 +75,10 @@ const RecordingPage: React.FC = () => {
       const response = await fetch(`${API_BASE_URL}/recordings/start`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           patient_id: MOCK_PATIENT_ID, // Example: link to a patient
           protocol_id: selectedProtocolId // Pass selected protocol ID
-        }), 
+        }),
       });
       if (!response.ok) {
         const errData = await response.json();
@@ -112,7 +112,7 @@ const RecordingPage: React.FC = () => {
       setIsPaused(false);
       setSummary(null); // Clear summary when stopping, will regenerate
       // After stopping, attempt to fetch transcription
-      if (updatedRecording.status === 'transcribed' || updatedRecording.status === 'stopped') { 
+      if (updatedRecording.status === 'transcribed' || updatedRecording.status === 'stopped') {
         fetchTranscription(updatedRecording.id);
       }
     } catch (err: any)      {
@@ -137,7 +137,7 @@ const RecordingPage: React.FC = () => {
     setTranscription(null);
     try {
       // Simulate delay for transcription fetching
-      // await new Promise(resolve => setTimeout(resolve, 1000)); 
+      // await new Promise(resolve => setTimeout(resolve, 1000));
       const response = await fetch(`${API_BASE_URL}/recordings/${recordingId}/transcription`);
       if (!response.ok) {
          if (response.status === 404) {
@@ -197,7 +197,7 @@ const RecordingPage: React.FC = () => {
   return (
     <div className="container mx-auto p-4 space-y-6">
       <h1 className="text-2xl font-bold text-center">Voice Recording & Transcription</h1>
-      
+
       {error && (
         <div className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
           <span className="font-medium">Error:</span> {error}
@@ -219,7 +219,7 @@ const RecordingPage: React.FC = () => {
           value={selectedProtocolId || ''}
           onChange={(e) => setSelectedProtocolId(Number(e.target.value))}
           disabled={isRecording || protocols.length === 0}
-          className={`mt-1 block w-full max-w-md py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm 
+          className={`mt-1 block w-full max-w-md py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm
                       focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm
                       ${isRecording ? 'bg-gray-200 cursor-not-allowed' : ''}`}
         >
@@ -258,7 +258,7 @@ const RecordingPage: React.FC = () => {
       />
 
       {currentRecording && currentRecording.status !== 'recording' && !transcription && !isLoadingTranscription && (
-        <button 
+        <button
             onClick={() => fetchTranscription(currentRecording.id)}
             className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
             disabled={isLoadingTranscription}
@@ -266,7 +266,7 @@ const RecordingPage: React.FC = () => {
             {isLoadingTranscription ? 'Reloading Transcription...' : 'Reload Transcription'}
         </button>
        )}
-      
+
       {/* Summary Section */}
       {transcription && !isRecording && (
         <div className="mt-6 pt-6 border-t">

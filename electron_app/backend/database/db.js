@@ -9,7 +9,7 @@ const db = new sqlcipher.Database(databasePath, (err) => {
     return;
   }
   console.log('Connected to the encrypted SQLite database.');
-  
+
   db.run(`PRAGMA key = '${encryptionKey}'`, (err) => {
     if (err) {
       console.error('Error setting encryption key:', err.message);
@@ -178,9 +178,9 @@ const createProtocolsTableAndSeed = () => {
           }
         ];
 
-        const insertSql = `INSERT INTO protocols (name, description, category, steps, createdAt, updatedAt) 
+        const insertSql = `INSERT INTO protocols (name, description, category, steps, createdAt, updatedAt)
                            VALUES (?, ?, ?, ?, datetime('now'), datetime('now'))`;
-        
+
         sampleProtocols.forEach(p => {
           db.run(insertSql, [p.name, p.description, p.category, p.steps], (err) => {
             if (err) {

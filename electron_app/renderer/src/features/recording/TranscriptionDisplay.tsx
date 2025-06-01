@@ -67,8 +67,8 @@ const TranscriptionDisplay: React.FC<TranscriptionDisplayProps> = ({ transcripti
 
 
       parts.push(
-        <span 
-          key={index} 
+        <span
+          key={index}
           className={`px-1 rounded ${bgColor} relative group cursor-help`}
           title={entity.label} // Basic tooltip for label
         >
@@ -92,7 +92,7 @@ const TranscriptionDisplay: React.FC<TranscriptionDisplayProps> = ({ transcripti
   return (
     <div className="p-6 border rounded-lg shadow-lg bg-white space-y-4">
       <h2 className="text-xl font-semibold mb-3 text-indigo-700">Transcription & Entities</h2>
-      
+
       {/* Display full transcription text with NER highlighting */}
       <div className="bg-indigo-50 p-4 rounded-md shadow-inner">
         <h3 className="text-md font-medium text-gray-600 mb-1">Full Text (with NER):</h3>

@@ -117,12 +117,12 @@ const ReportPage: React.FC = () => {
                   <Tooltip />
                   <Legend />
                   {section.data.datasets.map((dataset: any, dsIndex: number) => (
-                    <Line 
-                        key={dsIndex} 
-                        type="monotone" 
-                        dataKey={dataset.label} 
+                    <Line
+                        key={dsIndex}
+                        type="monotone"
+                        dataKey={dataset.label}
                         stroke={dataset.borderColor || (dsIndex === 0 ? '#8884d8' : '#82ca9d')} // Default colors
-                        activeDot={{ r: 8 }} 
+                        activeDot={{ r: 8 }}
                     />
                   ))}
                 </LineChart>
@@ -143,9 +143,9 @@ const ReportPage: React.FC = () => {
                     <Tooltip />
                     <Legend />
                     {section.data.datasets.map((dataset: any, dsIndex: number) => (
-                        <Bar 
-                            key={dsIndex} 
-                            dataKey={dataset.label} 
+                        <Bar
+                            key={dsIndex}
+                            dataKey={dataset.label}
                             fill={dataset.backgroundColor || (dsIndex === 0 ? '#8884d8' : '#82ca9d')} // Default colors
                         />
                     ))}
@@ -255,8 +255,8 @@ const ReportPage: React.FC = () => {
             type="submit"
             disabled={isLoading}
             className={`w-full px-6 py-3 text-white font-semibold rounded-lg transition-colors
-                        ${isLoading 
-                          ? 'bg-gray-400 cursor-not-allowed' 
+                        ${isLoading
+                          ? 'bg-gray-400 cursor-not-allowed'
                           : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
                         }
                         focus:outline-none`}
@@ -269,7 +269,7 @@ const ReportPage: React.FC = () => {
       {/* Report Display Section */}
       {isLoading && <div className="text-center p-6"><p className="text-lg text-indigo-600 animate-pulse">Loading report...</p></div>}
       {error && <div className="mt-6 p-4 text-center text-red-700 bg-red-100 border border-red-300 rounded-lg shadow-md" role="alert">Error: {error}</div>}
-      
+
       {reportData && (
         <div className="mt-10 p-8 bg-white rounded-xl shadow-2xl border border-gray-200">
           <header className="mb-6 text-center">
@@ -299,7 +299,7 @@ const ReportPage: React.FC = () => {
               Export to CSV
             </button>
           </div>
-          
+
           {reportData.sections.map(renderSection)}
         </div>
       )}

@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
 
   const sql = `INSERT INTO patients (firstName, lastName, dateOfBirth, contactInfo, medicalHistory, treatmentGoals, createdAt, updatedAt)
                VALUES (?, ?, ?, ?, ?, ?, datetime('now'), datetime('now'))`;
-  
+
   // Convert contactInfo to JSON string for storage
   const contactInfoJson = JSON.stringify(contactInfo || {});
 
@@ -80,7 +80,7 @@ router.put('/:id', (req, res) => {
 
   const contactInfoJson = JSON.stringify(contactInfo || {});
 
-  const sql = `UPDATE patients 
+  const sql = `UPDATE patients
                SET firstName = ?, lastName = ?, dateOfBirth = ?, contactInfo = ?, medicalHistory = ?, treatmentGoals = ?, updatedAt = datetime('now')
                WHERE id = ?`;
   db.run(sql, [firstName, lastName, dateOfBirth, contactInfoJson, medicalHistory, treatmentGoals, id], function(err) {

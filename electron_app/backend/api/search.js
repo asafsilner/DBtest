@@ -36,7 +36,7 @@ router.get('/', async (req, res) => {
     console.error('Error during search process:', error);
     const responseError = error.response ? error.response.data : (error.message || 'An internal server error occurred.');
     const responseStatus = error.status || (error.response ? error.response.status : 500);
-    
+
     return res.status(responseStatus).json({ error: 'Error processing search request.', details: responseError });
   }
 });

@@ -57,7 +57,7 @@ async def extract_entities_placeholder(
 
     # Select dummy entities based on input text, or use default
     selected_entities = dummy_ner_entities_map.get(request.text, dummy_ner_entities_map["default"])
-    
+
     # Adjust start/end_char if the provided text is shorter than what entities expect
     # This is a very basic adjustment for placeholder
     final_entities = []
@@ -70,8 +70,8 @@ async def extract_entities_placeholder(
         elif entity_data.start_char < len(request.text) and entity_data.end_char > len(request.text):
             # If entity goes beyond text length, try to adjust or skip
             # For simplicity, we just skip if it's out of bounds from the start
-            pass 
-            
+            pass
+
     # If no specific match and default entities also don't fit, return empty or a generic one
     if not final_entities and request.text not in dummy_ner_entities_map:
         # Example: if text is too short for default entities

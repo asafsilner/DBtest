@@ -25,9 +25,9 @@ const SearchResultsDisplay: React.FC<SearchResultsDisplayProps> = ({ results, is
   }
 
   if (!querySearched) { // No search performed yet
-    return null; 
+    return null;
   }
-  
+
   if (results.length === 0 && querySearched) {
     return <div className="p-4 text-center text-gray-600 border rounded-md bg-gray-50 shadow">No results found for "{querySearched}".</div>;
   }
@@ -52,8 +52,8 @@ const SearchResultsDisplay: React.FC<SearchResultsDisplayProps> = ({ results, is
       </h2>
       <div className="space-y-4">
         {results.map((item) => (
-          <div 
-            key={item.id} 
+          <div
+            key={item.id}
             className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow bg-gray-50"
           >
             <div className="flex justify-between items-start">

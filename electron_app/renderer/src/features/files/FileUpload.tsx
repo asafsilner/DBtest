@@ -66,7 +66,7 @@ const FileUpload: React.FC<FileUploadProps> = ({ patientId, onUploadSuccess }) =
         const errorData = await response.json();
         throw new Error(errorData.error || `Upload failed with status: ${response.status}`);
       }
-      
+
       clearInterval(interval);
       setUploadProgress(100);
       const result = await response.json();
@@ -87,14 +87,14 @@ const FileUpload: React.FC<FileUploadProps> = ({ patientId, onUploadSuccess }) =
   return (
     <div className="p-4 border rounded-lg shadow-md bg-white">
       <h3 className="text-lg font-semibold mb-3 text-gray-700">Upload File for Patient</h3>
-      
+
       {error && <div className="mb-3 p-3 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">{error}</div>}
       {successMessage && <div className="mb-3 p-3 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">{successMessage}</div>}
 
       <div className="mb-3">
-        <input 
-          type="file" 
-          onChange={handleFileChange} 
+        <input
+          type="file"
+          onChange={handleFileChange}
           className="block w-full text-sm text-gray-500
                      file:mr-4 file:py-2 file:px-4
                      file:rounded-full file:border-0
@@ -112,8 +112,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ patientId, onUploadSuccess }) =
 
       {isUploading && (
         <div className="w-full bg-gray-200 rounded-full h-2.5 mb-3">
-          <div 
-            className="bg-indigo-600 h-2.5 rounded-full transition-all duration-150 ease-out" 
+          <div
+            className="bg-indigo-600 h-2.5 rounded-full transition-all duration-150 ease-out"
             style={{ width: `${uploadProgress}%` }}
           ></div>
         </div>
@@ -123,8 +123,8 @@ const FileUpload: React.FC<FileUploadProps> = ({ patientId, onUploadSuccess }) =
         onClick={handleUpload}
         disabled={!selectedFile || isUploading}
         className={`w-full px-4 py-2 text-white font-medium rounded-md transition-colors
-                    ${(!selectedFile || isUploading) 
-                      ? 'bg-gray-400 cursor-not-allowed' 
+                    ${(!selectedFile || isUploading)
+                      ? 'bg-gray-400 cursor-not-allowed'
                       : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500'}
                     focus:outline-none focus:ring-2 focus:ring-offset-2`}
       >

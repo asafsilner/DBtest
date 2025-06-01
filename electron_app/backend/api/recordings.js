@@ -86,7 +86,7 @@ router.post('/:id/stop', async (req, res) => {
     if (diarizationResponse.status === 200 && diarizationResponse.data) {
       const diarizationResults = diarizationResponse.data; // List of {speaker, start_time, end_time}
       console.log(`Diarization results for recording ID: ${id} received.`);
-      
+
       // Merge diarization results into transcription segments
       // This is a simple merge logic: assumes segments from transcription and diarization align or can be matched by time.
       // A more robust merge would involve complex logic to map speakers to word-level segments.
@@ -103,7 +103,7 @@ router.post('/:id/stop', async (req, res) => {
       // Proceed with transcription segments without speaker labels if diarization fails
       // Or, set a different status like 'transcribed_no_diarization'
     }
-    
+
     const segmentsJson = JSON.stringify(finalSegments);
     let nerResultsJson = null;
 
@@ -127,11 +127,11 @@ router.post('/:id/stop', async (req, res) => {
         // Proceed without NER results
       }
     }
-    
+
     // 4. Update recording with final transcription, diarization, and NER data
     updateSql = 'UPDATE recordings SET status = ?, transcription_text = ?, transcription_segments = ?, ner_results = ? WHERE id = ?';
     status = 'transcribed'; // Mark as transcribed (with or without diarization/NER)
-    
+
     await new Promise((resolve, reject) => {
       db.run(updateSql, [status, transcriptionText, segmentsJson, nerResultsJson, id], function(err) {
         if (err) {
@@ -156,7 +156,7 @@ router.post('/:id/stop', async (req, res) => {
     console.error('Error during stop recording or transcription process:', error);
     const responseError = error.response ? error.response.data : (error.error || 'An internal server error occurred.');
     const responseStatus = error.status || (error.response ? error.response.status : 500);
-    
+
     // If the error was thrown by our promise rejects
     if (error.details) {
         return res.status(responseStatus).json({ error: error.error, details: error.details });
@@ -171,7 +171,7 @@ router.get('/:id/transcription', (req, res) => {
   const { id } = req.params;
   // Fetch transcription text, segments, and NER results
   const sql = "SELECT id, transcription_text, transcription_segments, ner_results FROM recordings WHERE id = ? AND (status = 'transcribed' OR status = 'error_transcription_failed')";
-  
+
   db.get(sql, [id], (err, row) => {
     if (err) {
       console.error("Error fetching processed data for recording:", err.message);

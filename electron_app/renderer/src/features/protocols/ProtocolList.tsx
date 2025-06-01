@@ -23,8 +23,8 @@ const ProtocolList: React.FC<ProtocolListProps> = ({ protocols, onSelectProtocol
       <h2 className="text-xl font-semibold mb-2">Available Protocols</h2>
       <ul className="divide-y divide-gray-200">
         {protocols.map(protocol => (
-          <li 
-            key={protocol.id} 
+          <li
+            key={protocol.id}
             onClick={() => onSelectProtocol(protocol.id)}
             className={`py-4 px-3 rounded-md cursor-pointer transition-colors
                         ${selectedProtocolId === protocol.id ? 'bg-indigo-100 shadow-md' : 'hover:bg-gray-50'}`}

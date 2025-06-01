@@ -5,13 +5,16 @@ import ProtocolPage from './pages/ProtocolPage';
 import TrainingPage from './pages/TrainingPage';
 import SearchPage from './pages/SearchPage';
 import ReportPage from './pages/ReportPage';
-import ProtocolEditorPage from './pages/ProtocolEditorPage'; // Import the ProtocolEditorPage
+import ProtocolEditorPage from './pages/ProtocolEditorPage';
+import FeedbackModal from './features/feedback/FeedbackModal';
+import HelpPage from './pages/HelpPage'; // Import HelpPage
 import './index.css'; // Ensure Tailwind CSS is imported
 
-type Page = 'patients' | 'recording' | 'protocols' | 'training' | 'search' | 'reports' | 'protocol_editor';
+type Page = 'patients' | 'recording' | 'protocols' | 'training' | 'search' | 'reports' | 'protocol_editor' | 'help';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('patients');
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false); // State for feedback modal
 
   const renderPage = () => {
     switch (currentPage) {
@@ -29,6 +32,8 @@ function App() {
         return <ReportPage />;
       case 'protocol_editor':
         return <ProtocolEditorPage />;
+      case 'help':
+        return <HelpPage />;
       default:
         return <PatientPage />;
     }
@@ -82,6 +87,19 @@ function App() {
             >
               Protocol Editor
             </button>
+            {/* Feedback Button in Nav */}
+            <button
+              onClick={() => setIsFeedbackModalOpen(true)}
+              className="hover:text-yellow-400 px-3 py-2 rounded-md text-sm font-medium border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-gray-800 transition-colors"
+            >
+              Feedback
+            </button>
+            <button
+              onClick={() => setCurrentPage('help')}
+              className={`hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium ${currentPage === 'help' ? 'bg-gray-900' : ''}`}
+            >
+              Help
+            </button>
           </nav>
         </div>
       </header>
@@ -91,6 +109,12 @@ function App() {
       <footer className="bg-gray-200 text-center p-3 text-sm text-gray-600">
         &copy; 2024 Patient Management System
       </footer>
+
+      {/* Render Feedback Modal */}
+      <FeedbackModal
+        isOpen={isFeedbackModalOpen}
+        onClose={() => setIsFeedbackModalOpen(false)}
+      />
     </div>
   );
 }

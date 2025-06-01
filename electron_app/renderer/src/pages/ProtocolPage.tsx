@@ -93,8 +93,8 @@ const ProtocolPage: React.FC = () => {
           {isLoadingList ? (
             <p>Loading protocols...</p>
           ) : (
-            <ProtocolList 
-              protocols={protocols} 
+            <ProtocolList
+              protocols={protocols}
               onSelectProtocol={handleSelectProtocol}
               selectedProtocolId={selectedProtocol?.id}
             />

@@ -64,7 +64,7 @@ router.post('/generate', async (req, res) => {
     console.error('Error during summary generation process:', error);
     const responseError = error.response ? error.response.data : (error.error || 'An internal server error occurred.');
     const responseStatus = error.status || (error.response ? error.response.status : 500);
-    
+
     if (error.details) { // Errors from our promise rejects
         return res.status(responseStatus).json({ error: error.error, details: error.details });
     }
@@ -76,7 +76,7 @@ router.post('/generate', async (req, res) => {
 router.get('/recording/:recording_id', (req, res) => {
   const { recording_id } = req.params;
   const sql = "SELECT id, summary_text FROM recordings WHERE id = ?";
-  
+
   db.get(sql, [recording_id], (err, row) => {
     if (err) {
       console.error("Error fetching summary:", err.message);

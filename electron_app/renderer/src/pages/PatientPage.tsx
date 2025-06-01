@@ -104,7 +104,7 @@ const PatientPage: React.FC = () => {
         const errorData = await response.json();
         throw new Error(errorData.error || `Failed to ${isUpdating ? 'update' : 'create'} patient.`);
       }
-      
+
       setShowForm(false);
       setEditingPatient(null);
       fetchPatients(); // Refresh the list
@@ -165,7 +165,7 @@ const PatientPage: React.FC = () => {
 
       <div className="md:col-span-2">
         {error && <div className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">{error}</div>}
-        
+
         {showForm ? (
           <PatientForm
             patient={editingPatient}
