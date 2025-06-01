@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "renderer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,10 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@journeyapps/sqlcipher": "^5.3.1",
-    "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "multer": "^2.0.0",
-    "sqlite3": "^5.1.7"
+    "recharts": "^2.15.3"
   }
 }
