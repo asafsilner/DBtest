@@ -1,7 +1,22 @@
+import os
+from dotenv import load_dotenv
 from fastapi import FastAPI, Body
 from typing import Optional, List, Dict, Any
+from pydantic import BaseModel
+from openai import OpenAI, APIError, RateLimitError, AuthenticationError
+
+load_dotenv()
 
 app = FastAPI()
+
+# Initialize OpenAI client (None if no key configured)
+_openai_api_key = os.getenv("OPENAI_API_KEY")
+openai_client: Optional[OpenAI] = None
+if _openai_api_key and _openai_api_key != "your-openai-api-key-here":
+    openai_client = OpenAI(api_key=_openai_api_key)
+    print("OpenAI client initialized successfully.")
+else:
+    print("WARNING: OPENAI_API_KEY not set. Summarization will use local fallback.")
 
 # Sample GET endpoint
 @app.get("/status")
@@ -57,33 +72,76 @@ class SummarizationResponse(BaseModel):
     recording_id: Optional[int]
     summary: str
 
-# AI Service Placeholder Endpoint for Summarization
+def _generate_local_fallback_summary(recording_id: Optional[int], transcription_text: str) -> str:
+  """Generate a basic local summary when OpenAI is unavailable."""
+  word_count = len(transcription_text.split())
+  preview = transcription_text[:200].strip()
+  return (
+    f"[Local fallback summary for recording ID {recording_id}] "
+    f"The session transcription contains {word_count} words. "
+    f"Preview: \"{preview}...\" "
+    "Note: For a full AI-generated summary, ensure your OpenAI API key is configured and has available credits."
+  )
+
+
+# AI Service Endpoint for Summarization (OpenAI with fallback)
 @app.post("/ai/summarize", response_model=SummarizationResponse)
 async def summarize_text(
     request_data: SummarizationRequest = Body(...)
 ):
   """
-  Placeholder endpoint for AI summarization.
-  Receives transcription text and returns a hardcoded dummy summary.
+  Summarizes transcription text using OpenAI GPT.
+  Falls back to a local summary if OpenAI credits are exhausted or the key is not configured.
   """
   print(f"AI Service: Received summarization request for recording_id: {request_data.recording_id}")
-  print(f"Transcription text received: '{request_data.transcription_text[:100]}...'") # Print first 100 chars
+  print(f"Transcription text received: '{request_data.transcription_text[:100]}...'")
 
-  # Hardcoded dummy summary
-  dummy_summary = (
-    f"This is a dummy AI-generated summary for recording ID {request_data.recording_id}. "
-    "The provided text discussed several important topics, including initial greetings and follow-up questions. "
-    "Further analysis would be required for a more detailed understanding, but this placeholder indicates "
-    "that the summarization process was successfully invoked."
+  # Try OpenAI summarization
+  if openai_client:
+    try:
+      response = openai_client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+          {
+            "role": "system",
+            "content": (
+              "You are a professional speech therapy session summarizer. "
+              "Summarize the following therapy session transcription concisely. "
+              "Include key topics discussed, patient progress observations, "
+              "and any action items or follow-ups mentioned. "
+              "Write the summary in the same language as the transcription."
+            )
+          },
+          {
+            "role": "user",
+            "content": request_data.transcription_text
+          }
+        ],
+        max_tokens=1024,
+        temperature=0.3,
+      )
+      summary = response.choices[0].message.content
+      print(f"OpenAI summary generated for recording ID: {request_data.recording_id}")
+      return {
+        "recording_id": request_data.recording_id,
+        "summary": summary
+      }
+    except RateLimitError as e:
+      print(f"OpenAI rate limit / credits exhausted: {e}. Falling back to local summary.")
+    except AuthenticationError as e:
+      print(f"OpenAI authentication failed: {e}. Falling back to local summary.")
+    except APIError as e:
+      print(f"OpenAI API error: {e}. Falling back to local summary.")
+    except Exception as e:
+      print(f"Unexpected error calling OpenAI: {e}. Falling back to local summary.")
+
+  # Fallback: local summary when OpenAI is unavailable or credits are exhausted
+  fallback_summary = _generate_local_fallback_summary(
+    request_data.recording_id, request_data.transcription_text
   )
-
-  # Simulate some processing time
-  # import asyncio
-  # await asyncio.sleep(1)
-
   return {
     "recording_id": request_data.recording_id,
-    "summary": dummy_summary
+    "summary": fallback_summary
   }
 
 # Placeholder for including routers from sub-services
@@ -98,8 +156,6 @@ app.include_router(nlp_search_router.router, prefix="/nlp", tags=["nlp"])
 app.include_router(training_jobs_router.router, prefix="/training", tags=["training"]) # Include the Training router
 
 
-# Pydantic model for request body if needed (FastAPI handles this with type hints)
-from pydantic import BaseModel
 class TranscriptionRequest(BaseModel):
     recording_id: Optional[int] = None
     dummy_data: Optional[str] = None

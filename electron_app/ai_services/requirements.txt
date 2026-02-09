@@ -4,6 +4,8 @@ whisperx
 pyannote.audio
 transformers
 sentence-transformers
+openai
+python-dotenv
 # Add other AI-related Python dependencies here, e.g.:
 # torch
 # torchaudio
