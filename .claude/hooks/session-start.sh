@@ -44,4 +44,16 @@ if [ -f "speech-therapist-ai-app/package.json" ]; then
   cd ..
 fi
 
+# Install Gmail MCP server package
+echo "Installing Gmail MCP server..."
+npm install --save-dev @anthropic-ai/mcp-server-gmail
+
+# Set up Gmail authentication paths in environment
+if [ -n "${CLAUDE_ENV_FILE:-}" ]; then
+  echo 'export GMAIL_CREDENTIALS_PATH="$CLAUDE_PROJECT_DIR/.claude/client_secret.json"' >> "$CLAUDE_ENV_FILE"
+  echo 'export GMAIL_TOKEN_PATH="$CLAUDE_PROJECT_DIR/.claude/token.json"' >> "$CLAUDE_ENV_FILE"
+  echo 'export GMAIL_SCOPES="https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.send https://mail.google.com/"' >> "$CLAUDE_ENV_FILE"
+fi
+
 echo "Dependencies installed successfully for Gmail MCP integration"
+echo "Gmail MCP is ready to use once credentials are configured"

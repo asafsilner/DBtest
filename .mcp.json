@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "gmail": {
+      "command": "npx",
+      "args": [
+        "@anthropic-ai/mcp-server-gmail"
+      ],
+      "env": {
+        "GMAIL_CREDENTIALS_PATH": "$CLAUDE_PROJECT_DIR/.claude/client_secret.json",
+        "GMAIL_TOKEN_PATH": "$CLAUDE_PROJECT_DIR/.claude/token.json",
+        "GMAIL_SCOPES": "https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/gmail.send https://mail.google.com/",
+        "LOG_LEVEL": "info"
+      },
+      "disabled": false
+    }
+  }
+}
