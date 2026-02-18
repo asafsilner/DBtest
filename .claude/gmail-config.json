@@ -1,0 +1,67 @@
+{
+  "labelRules": [
+    {
+      "name": "Work",
+      "patterns": {
+        "from": ["@yourcompany.com", "@work.com"],
+        "subject": ["meeting", "project", "deadline", "urgent"]
+      }
+    },
+    {
+      "name": "Finance",
+      "patterns": {
+        "from": ["@bank.com", "@paypal.com", "@stripe.com", "@square.com"],
+        "subject": ["invoice", "payment", "receipt", "transaction", "billing"]
+      }
+    },
+    {
+      "name": "Social",
+      "patterns": {
+        "from": ["@facebook.com", "@twitter.com", "@linkedin.com", "@instagram.com"],
+        "subject": ["notification", "comment", "like", "mention"]
+      }
+    },
+    {
+      "name": "Development",
+      "patterns": {
+        "from": ["@github.com", "@gitlab.com", "@bitbucket.org"],
+        "subject": ["pull request", "issue", "commit", "build"]
+      }
+    },
+    {
+      "name": "Newsletter",
+      "patterns": {
+        "from": [],
+        "subject": ["unsubscribe", "newsletter", "weekly digest", "monthly update"]
+      }
+    }
+  ],
+
+  "archiveAfterDays": 30,
+
+  "spamPatterns": [
+    "unsubscribe",
+    "promotional",
+    "limited time offer",
+    "click here",
+    "act now",
+    "congratulations",
+    "claim your prize"
+  ],
+
+  "importantSenders": [
+    "boss@",
+    "ceo@",
+    "manager@",
+    "client@",
+    "vip@"
+  ],
+
+  "routingRules": {
+    "notifications@": "Notifications",
+    "no-reply@": "Automated",
+    "support@": "Support",
+    "billing@": "Finance",
+    "hr@": "HR"
+  }
+}
